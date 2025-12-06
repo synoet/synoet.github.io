@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GithubRepo from "../components/GithubRepo.astro";
+
+---
+
+<BaseLayout title="Teo Nys" description="programmer & cto @ macro.com">
+  <div class="container">
+    <section class="hero">
+      <h1>TEO NYS</h1>
+
+      <p class="divider">/ABOUT</p>
+      <p>Programmer living in Brooklyn. CTO at <a href="https://www.macro.com">MACRO</a>.</p>
+      <p>Interested in programming languages, distributed systems, developer tooling, and real-time collaborative systems.</p>
+
+      <p class="divider">/MACRO</p>
+      <p>Building the fastest all-in-one workspace for startups.</p>
+      <p>See it for yourself <GithubRepo repo="macro-inc/macro" branch="main" /></p>
+      <blockquote>If you're a passionate programmer, and want to build the future of software in typescript & rust, email me at <a href="mailto:teo@macro.com">teo@macro.com</a>.</blockquote>
+      <p class="divider">/LINKS</p>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <a href="https://github.com/synoet">
+          GITHUB
+        </a>
+        <a href="https://www.macro.com">
+          MACRO
+        </a>
+        <a href="https://www.linkedin.com/in/nysteo/">
+          LINKEDIN
+        </a>
+        <a href="https://twitter.com/synoet">
+          TWITTER
+        </a>
+      </div>
+
+    </section>
+  </div>
+</BaseLayout>
+
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .hero {
+    padding: 48px 0 80px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding: 80px 0 120px;
+    }
+  }
+
+  .divider {
+    font-size: 0.85em;
+    opacity: 0.6;
+  }
+</style>
