@@ -14,28 +14,16 @@ const url = `https://github.com/${repo}`;
 
 <style>
   .github-repo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0;
-    background: color-mix(in srgb, var(--foreground) 5%, transparent);
-    border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
-    padding: 2px 8px;
-    font-size: 0.9em;
-    text-decoration: none;
-    color: var(--accent);
-    transition: border-color 0.15s ease;
-  }
-
-  .github-repo:hover {
-    border-color: var(--accent);
+    display: inline;
+    font-size: 0.75rem;
+    font-family: 'Disket Mono', monospace;
   }
 
   .prefix {
-    color: color-mix(in srgb, var(--foreground) 60%, transparent);
-    margin-right: 2px;
+    color: var(--fg-dim);
   }
 
   .branch {
-    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    color: var(--fg-dim);
   }
 </style>

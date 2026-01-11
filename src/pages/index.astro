@@ -1,62 +1,216 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import GithubRepo from "../components/GithubRepo.astro";
-
 ---
 
 <BaseLayout title="Teo Nys" description="programmer & cto @ macro.com">
-  <div class="container">
-    <section class="hero">
-      <h1>TEO NYS</h1>
+  <div class="page">
+    <div class="content">
+      <div class="grid-line"></div>
 
-      <p class="divider">/ABOUT</p>
-      <p>Programmer living in Brooklyn. CTO at <a href="https://www.macro.com">MACRO</a>.</p>
-      <p>Interested in programming languages, distributed systems, developer tooling, and real-time collaborative systems.</p>
-
-      <p class="divider">/MACRO</p>
-      <p>Building the fastest all-in-one workspace for startups.</p>
-      <p>See it for yourself <GithubRepo repo="macro-inc/macro" branch="main" /></p>
-      <blockquote>If you're a passionate programmer, and want to build the future of software in typescript & rust, email me at <a href="mailto:teo@macro.com">teo@macro.com</a>.</blockquote>
-      <p class="divider">/LINKS</p>
-      <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-        <a href="https://github.com/synoet">
-          GITHUB
-        </a>
-        <a href="https://www.macro.com">
-          MACRO
-        </a>
-        <a href="https://www.linkedin.com/in/nysteo/">
-          LINKEDIN
-        </a>
-        <a href="https://twitter.com/synoet">
-          TWITTER
-        </a>
+      <div class="header">
+        <h1>Teo Nys</h1>
+        <div class="ping">
+          <span class="ping-dot"></span>
+          <span class="ping-value" id="ping-value">--</span>
+        </div>
       </div>
 
-    </section>
+      <div class="grid-line"></div>
+
+      <p>
+        Programmer living in Brooklyn, NYC. CTO @ <a href="https://macro.com">Macro</a>.<br />
+        Focused on building fast and reliable systems.
+      </p>
+
+      <div class="grid-line"></div>
+
+      <p>
+        Interested in programming languages, distributed systems, developer tooling, and real-time collaboration.
+      </p>
+
+      <div class="grid-line"></div>
+
+      <p>
+        We are building Macro in the open. You can check out the <a href="https://github.com/macro-inc/macro">repository</a>, or <a href="https://macro.com">try it yourself</a>.
+      </p>
+
+      <div class="grid-line"></div>
+
+      <p>
+        You can find me on <a href="https://github.com/synoet">GitHub</a>, <a href="https://twitter.com/synoet">Twitter</a>, <a href="https://www.linkedin.com/in/nysteo/">LinkedIn</a>, or via <a href="mailto:teo@macro.com">email</a>.
+      </p>
+
+      <div class="grid-line"></div>
+    </div>
   </div>
 </BaseLayout>
 
-
 <style>
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 24px;
+  .page {
+    min-height: 100vh;
+    padding: 80px 24px;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
   }
 
-  .hero {
-    padding: 48px 0 80px;
+  .content {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
   }
 
-  @media (min-width: 1024px) {
-    .hero {
-      padding: 80px 0 120px;
+  .content::before,
+  .content::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+    opacity: 0.4;
+  }
+
+  .content::before {
+    left: calc(50% - 324px);
+  }
+
+  .content::after {
+    left: calc(50% + 324px);
+  }
+
+  .grid-line {
+    position: relative;
+    height: 1px;
+    margin: 16px 0;
+  }
+
+  .grid-line::before {
+    content: '';
+    position: absolute;
+    left: -100vw;
+    right: -100vw;
+    height: 1px;
+    background: var(--border);
+    opacity: 0.4;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--fg);
+    text-transform: none;
+    margin: 0;
+  }
+
+  .ping {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ping-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--fg-muted);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .ping-dot.green { background: #4ade80; }
+  .ping-dot.orange { background: #fb923c; }
+  .ping-dot.red { background: #f87171; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .ping-value {
+    font-size: 0.875rem;
+    color: var(--fg-dim);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--fg);
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--fg-muted);
+    text-underline-offset: 3px;
+    transition: none;
+  }
+
+  a:hover {
+    text-decoration-color: var(--fg);
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .page {
+      padding: 48px 20px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  const pingEl = document.getElementById('ping-value');
+  const pingDot = document.querySelector('.ping-dot');
+  let lastCommitTime: Date | null = null;
+
+  const FORTY_EIGHT_HOURS = 48 * 60 * 60;
+  const SIX_DAYS = 6 * 24 * 60 * 60;
+
+  async function fetchLastCommit() {
+    try {
+      const res = await fetch('https://api.github.com/users/synoet/events?per_page=10');
+      const events = await res.json();
+      const pushEvent = events.find((e: { type: string }) => e.type === 'PushEvent');
+      if (pushEvent) {
+        lastCommitTime = new Date(pushEvent.created_at);
+      }
+    } catch (e) {
+      console.error('Failed to fetch GitHub events', e);
     }
   }
 
-  .divider {
-    font-size: 0.85em;
-    opacity: 0.6;
+  function formatDuration(seconds: number): string {
+    if (seconds < 60) return `${seconds}s ago`;
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    return `${Math.floor(seconds / 86400)}d ago`;
   }
-</style>
+
+  function updatePing() {
+    if (!pingEl || !pingDot || !lastCommitTime) return;
+    const seconds = Math.floor((Date.now() - lastCommitTime.getTime()) / 1000);
+    pingEl.textContent = formatDuration(seconds);
+
+    pingDot.classList.remove('green', 'orange', 'red');
+    if (seconds < FORTY_EIGHT_HOURS) {
+      pingDot.classList.add('green');
+    } else if (seconds < SIX_DAYS) {
+      pingDot.classList.add('orange');
+    } else {
+      pingDot.classList.add('red');
+    }
+  }
+
+  fetchLastCommit();
+  setInterval(updatePing, 1000);
+  setInterval(fetchLastCommit, 60000);
+</script>
